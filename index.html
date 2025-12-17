@@ -237,102 +237,82 @@
     .car-btn.next{right:0}
 
     @media (max-width: 980px){
-  /* ===== MOBILE REDESIGN (hero + header) ===== */
-  header{height:64px}
-  .nav{padding:0 16px}
+  /* =================== MOBILE ONLY – NON TOCCA DESKTOP =================== */
 
-  .brand{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:2px;
-  }
-  .brand .name{
-    font-size:13px;
-    letter-spacing:.32em;
-  }
-
+  /* HEADER MOBILE */
+  .brand .name,
+  .brand .tag,
   .cta{display:none}
 
-  .hero{min-height:auto;padding-top:64px}
+  .brand{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+  }
+
+  nav.links{display:none}
+  .burger{display:grid;place-items:center}
+
+  /* HERO MOBILE – RIDISEGNO (SOLO CSS) */
+  .hero{padding-top:78px}
+
   .hero .wrap{
-    padding:64px 16px 0;
-    gap:18px;
+    grid-template-columns:1fr;
+    padding:92px 20px 0;
+    gap:22px;
   }
 
   .kicker{
     font-size:11px;
     letter-spacing:.24em;
-    margin-bottom:8px;
   }
 
   h1{
-    font-size:40px;
+    font-size:clamp(38px, 9vw, 46px);
     line-height:1.05;
-    letter-spacing:-.03em;
   }
 
   .lead{
     font-size:15px;
     line-height:1.7;
-    margin-top:12px;
   }
 
   .hero-actions{
-    margin-top:22px;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:12px;
+    flex-direction:column;
+    gap:14px;
   }
 
-  .btn, .btn.primary{
+  .hero-actions .btn{
     width:100%;
+    justify-content:center;
     padding:16px 18px;
-    font-size:12px;
   }
 
   .hero-media{
-    height:240px;
-    border-radius:22px;
-    margin-top:22px;
+    height:300px;
+    border-radius:24px;
   }
 
-  /* ===== MOBILE PROJECTS CAROUSEL ===== */
-  .carousel{
-    grid-auto-columns: 88%;
-    padding:6px 0 6px 6px;
-  }
+  /* PROGETTI MOBILE */
+  .carousel{grid-auto-columns:86%;padding:6px}
+  .car-btn{display:none}
 
-  .project{
-    min-height:420px;
-  }
+  /* GRID SECTIONS */
+  .grid{grid-template-columns:repeat(6,1fr)}
+  .tile{grid-column: span 6}
+  .tile.big{grid-column: span 6}
 
-  .project-info{
-    padding:16px;
-  }
+  /* WORKFLOW MOBILE */
+  .wf-content{grid-template-columns:1fr;align-items:stretch}
+  .wf-sticky{top:78px;height:calc(100vh - 78px)}
+  .wf-page{height:calc(100vh - 78px)}
+  .wf-word{font-size:clamp(52px, 11vw, 96px)}
 
-  .project-info h3{
-    font-size:17px;
-  }
-
-  .project-link{
-    width:100%;
-    margin-top:16px;
-  }
-
-  /* ===== MOBILE WORKFLOW ===== */
-  .wf-word{
-    font-size:48px;
-  }
-
-  .wf-panel{
-    padding:14px;
-  }
-
-  /* ===== MOBILE FOOTER ===== */
-  .footer{
-    padding:32px 18px;
-  }
+  /* FOOTER / SERVICES */
+  .services{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .footer{padding:44px 22px; border-radius:34px}
+  .cta-block{border-radius:34px}
 }
 
       .car-btn{display:none}
