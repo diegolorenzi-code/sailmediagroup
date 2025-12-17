@@ -63,6 +63,7 @@
       gap:14px;
     }
     .brand{display:flex;align-items:center;gap:12px;user-select:none}
+    .logo-placeholder{width:120px;height:28px;border-radius:6px;border:1px dashed rgba(255,255,255,.35);opacity:.55}
     .mark{
       width:34px;height:34px;border-radius:12px;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
@@ -215,6 +216,33 @@
     .tile h3{font-size:20px;letter-spacing:-.02em}
     .tile .meta{margin-top:10px;color:rgba(0,255,209,.9);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
 
+    /* =================== Projects carousel =================== */
+    .carousel-wrap{position:relative;margin-top:22px}
+    .carousel{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(320px, 1fr);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 54px 6px 6px;scrollbar-width:none}
+    .carousel::-webkit-scrollbar{display:none}
+
+    .project{scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);min-height:420px;position:relative;display:grid;grid-template-rows: 1fr auto;box-shadow:none}
+    .project-media{display:block;min-height:280px;background-size:cover;background-position:center;transform:scale(1.06);transition:transform .9s ease, filter .9s ease;filter:contrast(1.06)}
+    .project:hover .project-media{transform:scale(1.16);filter:contrast(1.14)}
+    .project:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.82));pointer-events:none}
+    .project-info{position:relative;z-index:2;padding:18px}
+    .project-info h3{font-size:18px;letter-spacing:-.02em;line-height:1.15}
+    .project-info p{margin-top:10px;color:rgba(0,255,209,.9);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+    .project-link{margin-top:14px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font-size:12px;letter-spacing:.16em;text-transform:uppercase;transition:transform .18s ease, background .18s ease, border-color .18s ease;white-space:nowrap}
+    .project-link:hover{transform:translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(0,255,209,.35)}
+
+    .car-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(5,7,11,.55);backdrop-filter: blur(10px);color:var(--text);cursor:pointer;display:grid;place-items:center;z-index:5;transition:transform .18s ease, background .18s ease, border-color .18s ease}
+    .car-btn:hover{transform:translateY(-50%) scale(1.03);background:rgba(5,7,11,.70);border-color:rgba(0,255,209,.35)}
+    .car-btn.prev{left:0}
+    .car-btn.next{right:0}
+
+    @media (max-width: 980px){
+      .carousel{grid-auto-columns: 86%; padding:6px 6px}
+      .car-btn{display:none}
+      .project{min-height:440px}
+      .project-media{min-height:300px}
+    }
+
     /* =================== Workflow (wheel stepper) =================== */
     .workflow{padding:0;margin-top:10px}
     .wf-shell{max-width:var(--max);margin:0 auto;padding:0 22px 90px}
@@ -344,10 +372,7 @@
     <div class="nav">
       <a class="brand" href="#top" aria-label="Sail Media Group">
         <div class="mark" aria-hidden="true"></div>
-        <div>
-          <div class="name">SAIL MEDIA GROUP</div>
-          <div class="tag">PHOTO and VIDEO for sailing events</div>
-        </div>
+        <div class="name">SAIL MEDIA GROUP</div>
       </a>
 
       <nav class="links" aria-label="Menu">
@@ -410,59 +435,56 @@
   </main>
 
   <section id="work" class="section">
-    <div class="eyebrow">Progetti</div>
-    <div class="title">Alcuni dei nostri progetti</div>
+  <div class="eyebrow">Progetti</div>
+  <div class="title">Alcuni dei nostri lavori</div>
 
-    <div class="grid reveal">
-      <a class="tile big" href="#" aria-label="Apri progetto">
-        <div class="bg" style="background-image:url('img/projects/project1.jpg')"></div>
-        <div class="tinfo">
-          <h3>LAKE GARDA OPTI MEETING</h3>
-          <div class="meta">REGATE • EDITING</div>
-        </div>
-      </a>
+  <div class="carousel-wrap reveal">
+    <button class="car-btn prev" aria-label="Precedente">‹</button>
 
-      <a class="tile" href="#" aria-label="Apri progetto">
-        <div class="bg" style="background-image:url('img/projects/project2.jpg')"></div>
-        <div class="tinfo">
-          <h3>XXXVIII CAMPIONATO INVERNALE DEL GARDA</h3>
-          <div class="meta">FOTO • SOCIAL</div>
-        </div>
-      </a>
+    <div class="carousel" id="projectsCarousel">
 
-      <a class="tile" href="#" aria-label="Apri progetto">
-        <div class="bg" style="background-image:url('img/projects/project3.jpg')"></div>
-        <div class="tinfo">
-          <h3>CAMPIONATO ITALIANO ASSO 99</h3>
-          <div class="meta">REEL • FOTO</div>
+      <!-- PROJECT ITEM -->
+      <article class="project">
+        <a href="#" class="project-media" style="background-image:url('img/projects/project1.jpg')"></a>
+        <div class="project-info">
+          <h3>Lake Garda Opti Meeting</h3>
+          <p>Foto • Video • Editing</p>
+          <a href="#" class="project-link">Vedi progetto</a>
         </div>
-      </a>
+      </article>
 
-      <a class="tile" href="#" aria-label="Apri progetto">
-        <div class="bg" style="background-image:url('img/projects/project4.jpg')"></div>
-        <div class="tinfo">
-          <h3>GIROLAGO SOPRAVENTUS</h3>
-          <div class="meta">VIDEO • FOTO</div>
+      <article class="project">
+        <a href="#" class="project-media" style="background-image:url('img/projects/project2.jpg')"></a>
+        <div class="project-info">
+          <h3>Campionato Invernale del Garda</h3>
+          <p>Foto • Social</p>
+          <a href="#" class="project-link">Vedi progetto</a>
         </div>
-      </a>
+      </article>
 
-      <a class="tile big" href="#" aria-label="Apri progetto">
-        <div class="bg" style="background-image:url('img/projects/project5.jpg')"></div>
-        <div class="tinfo">
-          <h3>TROFEO SILVANO MASCANZONI</h3>
-          <div class="meta">HIGHLIGHTS • PRESS</div>
+      <article class="project">
+        <a href="#" class="project-media" style="background-image:url('img/projects/project3.jpg')"></a>
+        <div class="project-info">
+          <h3>Melges 24 European Series</h3>
+          <p>Video • Editing</p>
+          <a href="#" class="project-link">Vedi progetto</a>
         </div>
-      </a>
+      </article>
 
-      <a class="tile" href="#" aria-label="Apri progetto">
-        <div class="bg" style="background-image:url('img/projects/project6.jpg')"></div>
-        <div class="tinfo">
-          <h3>MELGES 24 EU SERIES</h3>
-          <div class="meta">RACE FILM • FOTO</div>
+      <article class="project">
+        <a href="#" class="project-media" style="background-image:url('img/projects/project4.jpg')"></a>
+        <div class="project-info">
+          <h3>Trofeo Silvano Mascanzoni</h3>
+          <p>Foto • Video</p>
+          <a href="#" class="project-link">Vedi progetto</a>
         </div>
-      </a>
+      </article>
+
     </div>
-  </section>
+
+    <button class="car-btn next" aria-label="Successivo">›</button>
+  </div>
+</section>
 
   <section id="workflow" class="workflow">
     <div class="wf-shell">
@@ -650,6 +672,51 @@
       entries.forEach(en => { if(en.isIntersecting) en.target.classList.add('in'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Projects carousel (mouse/trackpad + buttons + auto-scroll)
+    const car = document.getElementById('projectsCarousel');
+    const prevBtn = document.querySelector('.car-btn.prev');
+    const nextBtn = document.querySelector('.car-btn.next');
+
+    function getCardStep(){
+      if(!car) return 360;
+      const first = car.querySelector('.project');
+      if(!first) return 360;
+      const styles = window.getComputedStyle(car);
+      const gap = parseFloat(styles.columnGap || styles.gap || '18') || 18;
+      return first.getBoundingClientRect().width + gap;
+    }
+
+    function scrollByStep(dir){
+      if(!car) return;
+      car.scrollBy({ left: dir * getCardStep(), behavior: 'smooth' });
+    }
+
+    if(prevBtn) prevBtn.addEventListener('click', () => scrollByStep(-1));
+    if(nextBtn) nextBtn.addEventListener('click', () => scrollByStep(1));
+
+    // Auto-scroll (pausa su hover/touch/scroll)
+    let autoT = null;
+    function startAuto(){
+      if(!car) return;
+      stopAuto();
+      autoT = setInterval(() => {
+        const max = car.scrollWidth - car.clientWidth;
+        if(max <= 0) return;
+        const nearEnd = car.scrollLeft >= max - 8;
+        car.scrollTo({ left: nearEnd ? 0 : car.scrollLeft + getCardStep(), behavior: 'smooth' });
+      }, 4200);
+    }
+    function stopAuto(){ if(autoT){ clearInterval(autoT); autoT = null; } }
+
+    if(car){
+      car.addEventListener('mouseenter', stopAuto);
+      car.addEventListener('mouseleave', startAuto);
+      car.addEventListener('touchstart', stopAuto, { passive: true });
+      car.addEventListener('wheel', stopAuto, { passive: true });
+      car.addEventListener('scroll', () => { stopAuto(); window.clearTimeout(car._rt); car._rt = window.setTimeout(startAuto, 1200); }, { passive: true });
+      startAuto();
+    }
 
     // Parallax/scale targets
     const parTargets = Array.from(document.querySelectorAll('[data-parallax], [data-scale]'));
