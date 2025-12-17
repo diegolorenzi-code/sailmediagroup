@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sail Media Group — Photo & Video for sailing event</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#05070b;
+      --bg2:#071521;
+      --text:#f7fbff;
+      --muted:rgba(247,251,255,.72);
+      --muted2:rgba(247,251,255,.52);
+      --accent:#00ffd1;
+      --accent2:#2aa3ff;
+      --radius:28px;
+      --shadow:0 30px 90px rgba(0,0,0,.55);
+      --max:1240px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 70% 15%, rgba(0,255,209,.14), transparent 60%),
+        radial-gradient(900px 600px at 20% 70%, rgba(42,163,255,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* =================== Header =================== */
+    header{
+      position:fixed; inset:0 0 auto 0;
+      height:78px;
+      z-index:100;
+      transition:background .25s ease, box-shadow .25s ease, border-color .25s ease;
+      border-bottom:1px solid transparent;
+    }
+    header.scrolled{
+      background:rgba(5,7,11,.78);
+      backdrop-filter: blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      box-shadow:0 12px 32px rgba(0,0,0,.38);
+    }
+    .nav{
+      height:100%;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;user-select:none}
+    .mark{
+      width:34px;height:34px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 16px 40px rgba(0,255,209,.14);
+      position:relative;overflow:hidden;
+    }
+    .mark:after{
+      content:"";position:absolute;inset:-40% -60% -40% -60%;
+      background:radial-gradient(circle, rgba(255,255,255,.55), transparent 55%);
+      transform:translate(30%,-20%);
+      opacity:.35;
+    }
+    .brand .name{font-weight:900;letter-spacing:.28em;font-size:14px;text-transform:uppercase}
+    .brand .tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2)}
+
+    nav.links{display:flex;gap:26px;align-items:center}
+    nav.links a{
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      opacity:.78;
+      position:relative;
+      padding:10px 0;
+    }
+    nav.links a:hover{opacity:1}
+    nav.links a:after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:6px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(0,255,209,.85), transparent);
+      transform:scaleX(0);
+      transform-origin:center;
+      transition:transform .22s ease;
+      opacity:.8;
+    }
+    nav.links a:hover:after{transform:scaleX(1)}
+
+    .cta{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:11px 14px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      white-space:nowrap;
+    }
+    .cta:hover{transform:translateY(-1px); background:rgba(255,255,255,.09); border-color:rgba(0,255,209,.35)}
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--accent);box-shadow:0 0 0 6px rgba(0,255,209,.12)}
+
+    .burger{
+      display:none;
+      width:44px;height:44px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .burger svg{width:20px;height:20px}
+
+    /* Mobile menu */
+    .mnav{
+      display:none;
+      position:fixed;inset:0;z-index:120;
+      background:rgba(5,7,11,.86);
+      backdrop-filter: blur(16px);
+    }
+    .mnav.open{display:block}
+    .mnav .sheet{max-width:var(--max);margin:0 auto;padding:96px 22px 28px;min-height:100vh}
+    .mnav a{display:block;font-size:28px;font-weight:800;letter-spacing:-.02em;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);opacity:.92}
+    .mnav a:hover{opacity:1}
+    .mnav .close{
+      position:fixed;top:18px;right:18px;
+      width:44px;height:44px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+    }
+
+    /* =================== Hero =================== */
+    .hero{min-height:100vh;padding-top:78px;position:relative;overflow:hidden}
+    .hero .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:110px 22px 0;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:64px;
+      align-items:center;
+    }
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--muted);
+    }
+    .kicker .pulse{
+      width:10px;height:10px;border-radius:99px;background:var(--accent);
+      box-shadow:0 0 0 0 rgba(0,255,209,.28);
+      animation:pulse 2.2s ease-out infinite;
+    }
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,255,209,.30)}70%{box-shadow:0 0 0 12px rgba(0,255,209,0)}100%{box-shadow:0 0 0 0 rgba(0,255,209,0)}}
+
+    h1{margin-top:18px;font-size:clamp(44px, 5.8vw, 84px);line-height:1.01;letter-spacing:-.04em;font-weight:900}
+    .lead{margin-top:18px;max-width:560px;font-size:16px;color:var(--muted);line-height:1.75}
+    .hero-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 18px;border-radius:999px;
+      font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(0,255,209,.35)}
+    .btn.primary{border:1px solid rgba(0,255,209,.35);background:linear-gradient(135deg, rgba(0,255,209,.22), rgba(42,163,255,.12))}
+
+    .hero-media{
+      position:relative;height:540px;border-radius:var(--radius);
+      overflow:hidden;box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.12);
+      background:url('img/hero/hero.jpg') center/cover no-repeat;
+      transform: translateZ(0);
+    }
+
+    .wind{position:absolute;inset:0;pointer-events:none;opacity:.28}
+    .wind i{position:absolute;left:-60%;right:-60%;height:2px;background:linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent);animation:windMove linear infinite}
+    .wind i:nth-child(1){top:22%;animation-duration:14s}
+    .wind i:nth-child(2){top:44%;animation-duration:18s;opacity:.24}
+    .wind i:nth-child(3){top:66%;animation-duration:24s;opacity:.18}
+    @keyframes windMove{from{transform:translateX(0)}to{transform:translateX(40%)}}
+
+    /* =================== Sections =================== */
+    .section{max-width:var(--max);margin:0 auto;padding:110px 22px}
+    .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,255,209,.9);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .eyebrow:before{content:"";width:10px;height:10px;border-radius:99px;background:var(--accent);box-shadow:0 0 0 10px rgba(0,255,209,.10)}
+    .title{font-size:clamp(34px, 4.6vw, 64px);letter-spacing:-.04em;line-height:1.05;font-weight:900;margin-bottom:32px}
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+    .tile{grid-column: span 4;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);min-height:320px;position:relative;cursor:pointer;transform: translateZ(0)}
+    .tile.big{grid-column: span 8; min-height:360px}
+    .tile .bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);transition:transform .9s ease, filter .9s ease;filter:contrast(1.06)}
+    .tile:hover .bg{transform:scale(1.18);filter:contrast(1.14)}
+    .tile:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.84))}
+    .tile .tinfo{position:absolute;left:18px;right:18px;bottom:18px;z-index:2}
+    .tile h3{font-size:20px;letter-spacing:-.02em}
+    .tile .meta{margin-top:10px;color:rgba(0,255,209,.9);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+
+    /* =================== Workflow (wheel stepper) =================== */
+    .workflow{padding:0;margin-top:10px}
+    .wf-shell{max-width:var(--max);margin:0 auto;padding:0 22px 90px}
+
+    .wf-sticky{
+      position:sticky;top:88px;height:calc(100vh - 88px);
+      border-radius:min(5vw, 54px);overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);background:#000;
+      transform: translateZ(0);
+    }
+
+    .wf-bg{position:absolute;inset:0}
+    .wf-bg .layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity .55s ease, transform .85s ease;filter:contrast(1.12)}
+    .wf-bg .layer.active{opacity:1;transform:scale(1.02)}
+    .wf-bg:after{
+      content:"";position:absolute;inset:0;
+      background:radial-gradient(900px 500px at 70% 20%, rgba(0,255,209,.18), transparent 60%),
+                 radial-gradient(900px 500px at 15% 75%, rgba(42,163,255,.16), transparent 60%),
+                 linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.78));
+    }
+
+    /* Invisible internal scroll (touch track + snap) */
+    .wf-scroll{position:absolute;inset:0;overflow:auto;scroll-snap-type:y mandatory;scrollbar-width:none;z-index:3}
+    .wf-scroll::-webkit-scrollbar{display:none}
+    .wf-page{height:calc(100vh - 88px);scroll-snap-align:start}
+
+    .wf-content{
+      position:absolute;inset:0;z-index:4;
+      display:grid;grid-template-columns:1.1fr .9fr;
+      gap:22px;padding:clamp(18px, 3vw, 36px);
+      align-items:end;
+      pointer-events:none; /* let wheel reach the sticky */
+    }
+
+    .wf-words{align-self:center;padding:clamp(6px, 2vw, 22px)}
+    .wf-word{font-weight:900;letter-spacing:-.06em;line-height:.92;font-size:clamp(56px, 8.6vw, 120px);opacity:.28;transform:translateY(6px);transition:opacity .35s ease, transform .35s ease;user-select:none}
+    .wf-word.active{opacity:1;transform:translateY(0)}
+    .wf-sub{margin-top:14px;max-width:520px;color:var(--muted);line-height:1.8;font-size:15px}
+
+    .wf-panel{
+      border-radius:24px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(5,7,11,.46);backdrop-filter: blur(12px);
+      padding:18px 16px;display:grid;gap:12px;align-self:end;
+      pointer-events:auto;
+    }
+
+    .wf-steps{display:grid;gap:10px}
+    .wf-step{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05);color:rgba(255,255,255,.80);transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease}
+    .wf-step i{width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.22);box-shadow:0 0 0 8px rgba(255,255,255,.06);flex:0 0 auto}
+    .wf-step strong{letter-spacing:.22em;text-transform:uppercase;font-size:12px}
+    .wf-step.active{background:linear-gradient(135deg, rgba(0,255,209,.18), rgba(42,163,255,.10));border-color:rgba(0,255,209,.30);color:rgba(255,255,255,.94);transform:translateY(-1px)}
+    .wf-step.active i{background:var(--accent);box-shadow:0 0 0 10px rgba(0,255,209,.12)}
+
+    .wf-mouse{display:flex;align-items:center;gap:14px;justify-content:flex-start;margin-top:6px}
+    .mouse{width:34px;height:54px;border-radius:20px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);position:relative;flex:0 0 auto}
+    .wheel{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:6px;height:10px;border-radius:99px;background:linear-gradient(180deg,var(--accent),rgba(255,255,255,.55));animation:wheel 1.4s ease-in-out infinite;opacity:.95}
+    @keyframes wheel{0%{transform:translate(-50%,0);opacity:.9}60%{transform:translate(-50%,10px);opacity:.55}100%{transform:translate(-50%,0);opacity:.9}}
+    .arrow{width:12px;height:12px;border-right:2px solid rgba(255,255,255,.75);border-bottom:2px solid rgba(255,255,255,.75);transform:rotate(45deg);opacity:.75;animation:arrow 1.4s ease-in-out infinite;margin-left:-4px}
+    @keyframes arrow{0%,100%{transform:rotate(45deg) translateY(0);opacity:.65}60%{transform:rotate(45deg) translateY(7px);opacity:.92}}
+    .wf-hint{color:var(--muted2);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+
+    .wf-progress{position:absolute;left:18px;right:18px;bottom:18px;height:8px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;z-index:5}
+    .wf-progress > i{display:block;height:100%;width:33%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .35s ease}
+
+    /* =================== Services =================== */
+    .services{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px}
+    .svc{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);border-radius:var(--radius);padding:28px 22px;min-height:220px;display:flex;flex-direction:column;gap:12px}
+    .svc .icon{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg, rgba(0,255,209,.22), rgba(42,163,255,.14));border:1px solid rgba(0,255,209,.18)}
+    .svc h3{font-size:18px;letter-spacing:-.02em}
+    .svc p{color:var(--muted);line-height:1.75}
+
+    /* =================== CTA =================== */
+    .cta-block{border-radius: min(6vw, 64px);padding:86px 22px;text-align:center;background:linear-gradient(135deg, rgba(0,255,209,.88), rgba(42,163,255,.78));color:#061018;box-shadow:0 40px 90px rgba(0,0,0,.35)}
+    .cta-block h2{font-size:clamp(32px, 4vw, 56px);letter-spacing:-.04em;line-height:1.06;font-weight:900}
+    .cta-block p{margin:18px auto 0;max-width:720px;opacity:.92;line-height:1.75}
+    .cta-block .btn2{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 22px;border-radius:999px;margin-top:24px;background:#061018;color:#fff;font-weight:900;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+
+    /* =================== Footer =================== */
+    footer{padding:0 22px 90px}
+    .footer{max-width:var(--max);margin:0 auto;border-radius: min(6vw, 70px);padding:64px 54px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05)}
+    .fgrid{display:grid;grid-template-columns: 1.5fr 1fr 1fr;gap:38px;align-items:start}
+    .fgrid h4{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.9;margin-bottom:12px}
+    .fgrid p, .fgrid a{color:var(--muted);line-height:1.9;font-size:14px}
+    .social{display:flex;gap:12px;margin-top:16px}
+    .social a{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);transition:transform .18s ease, background .18s ease, border-color .18s ease}
+    .social a:hover{transform:translateY(-1px); background:rgba(255,255,255,.12); border-color:rgba(0,255,209,.35)}
+    .footbar{margin-top:34px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--muted2);font-size:12px;letter-spacing:.06em}
+
+    /* =================== Reveal =================== */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .85s ease, transform .85s ease}
+    .reveal.in{opacity:1; transform:translateY(0)}
+
+    /* =================== Responsive =================== */
+    @media (max-width: 980px){
+      nav.links{display:none}
+      .burger{display:grid;place-items:center}
+      .hero .wrap{grid-template-columns:1fr;padding-top:78px;gap:26px}
+      .hero-media{height:320px}
+
+      .grid{grid-template-columns:repeat(6,1fr)}
+      .tile{grid-column: span 6}
+      .tile.big{grid-column: span 6}
+
+      .wf-content{grid-template-columns:1fr;align-items:stretch}
+      .wf-sticky{top:78px;height:calc(100vh - 78px)}
+      .wf-page{height:calc(100vh - 78px)}
+      .wf-word{font-size:clamp(52px, 11vw, 96px)}
+
+      .services{grid-template-columns:1fr}
+      .fgrid{grid-template-columns:1fr}
+      .footer{padding:44px 22px; border-radius:34px}
+      .cta-block{border-radius:34px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .reveal{transition:none}
+      .kicker .pulse, .wind i, .wheel, .arrow{animation:none}
+      .tile .bg, .hero-media .poster, .wf-bg .layer{transition:none}
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Sail Media Group">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <div class="name">SAIL MEDIA GROUP</div>
+          <div class="tag">PHOTO and VIDEO for sailing events</div>
+        </div>
+      </a>
+
+      <nav class="links" aria-label="Menu">
+        <a href="#work">Progetti</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#services">Servizi</a>
+        <a href="#contact">Contatti</a>
+      </nav>
+
+      <a class="cta" href="#contact"><span class="dot" aria-hidden="true"></span>Richiedi copertura</a>
+
+      <button class="burger" id="openNav" aria-label="Apri menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="mnav" id="mnav" aria-hidden="true">
+    <button class="close" id="closeNav" aria-label="Chiudi menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12"/><path d="M18 6l-12 12"/>
+      </svg>
+    </button>
+    <div class="sheet">
+      <a href="#work" class="mLink">Progetti</a>
+      <a href="#workflow" class="mLink">Workflow</a>
+      <a href="#services" class="mLink">Servizi</a>
+      <a href="#contact" class="mLink">Contatti</a>
+      <div style="margin-top:22px;color:var(--muted);line-height:1.8">info@sailmediagroup.it</div>
+    </div>
+  </div>
+
+  <main id="top" class="hero">
+    <div class="wind" aria-hidden="true"><i></i><i></i><i></i></div>
+
+    <section class="wrap">
+      <div>
+        <div class="kicker"><span class="pulse" aria-hidden="true"></span> FOTO • VIDEO • SOCIAL MEDIA MANAGEMENT</div>
+        <h1>Vela da regata.<br>Contenuti ad alte prestazioni.</h1>
+        <p class="lead">Sail Media Group si specializza nella creazione di contenuti multimediali, foto e video, dedicati al mondo della vela, catturando l'essenza e la passione di ogni avventura nautica.
+</p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#work">Guarda i lavori</a>
+          <a class="btn" href="#workflow">Vedi il workflow</a>
+        </div>
+      </div>
+
+      <div class="hero-media" data-parallax="-16" data-scale="0.06">
+        <div class="poster" aria-label="Video hero (sostituibile)"></div>
+        <div class="hud" aria-hidden="true">
+          <span class="chip">Live coverage</span>
+          <span class="chip">Race film</span>
+          <span class="chip">Social cuts</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section id="work" class="section">
+    <div class="eyebrow">Progetti</div>
+    <div class="title">Alcuni dei nostri progetti</div>
+
+    <div class="grid reveal">
+      <a class="tile big" href="#" aria-label="Apri progetto">
+        <div class="bg" style="background-image:url('img/projects/project1.jpg')"></div>
+        <div class="tinfo">
+          <h3>LAKE GARDA OPTI MEETING</h3>
+          <div class="meta">REGATE • EDITING</div>
+        </div>
+      </a>
+
+      <a class="tile" href="#" aria-label="Apri progetto">
+        <div class="bg" style="background-image:url('img/projects/project2.jpg')"></div>
+        <div class="tinfo">
+          <h3>XXXVIII CAMPIONATO INVERNALE DEL GARDA</h3>
+          <div class="meta">FOTO • SOCIAL</div>
+        </div>
+      </a>
+
+      <a class="tile" href="#" aria-label="Apri progetto">
+        <div class="bg" style="background-image:url('img/projects/project3.jpg')"></div>
+        <div class="tinfo">
+          <h3>CAMPIONATO ITALIANO ASSO 99</h3>
+          <div class="meta">REEL • FOTO</div>
+        </div>
+      </a>
+
+      <a class="tile" href="#" aria-label="Apri progetto">
+        <div class="bg" style="background-image:url('img/projects/project4.jpg')"></div>
+        <div class="tinfo">
+          <h3>GIROLAGO SOPRAVENTUS</h3>
+          <div class="meta">VIDEO • FOTO</div>
+        </div>
+      </a>
+
+      <a class="tile big" href="#" aria-label="Apri progetto">
+        <div class="bg" style="background-image:url('img/projects/project5.jpg')"></div>
+        <div class="tinfo">
+          <h3>TROFEO SILVANO MASCANZONI</h3>
+          <div class="meta">HIGHLIGHTS • PRESS</div>
+        </div>
+      </a>
+
+      <a class="tile" href="#" aria-label="Apri progetto">
+        <div class="bg" style="background-image:url('img/projects/project6.jpg')"></div>
+        <div class="tinfo">
+          <h3>MELGES 24 EU SERIES</h3>
+          <div class="meta">RACE FILM • FOTO</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="workflow" class="workflow">
+    <div class="wf-shell">
+      <div class="eyebrow">Workflow</div>
+      <div class="title">Come lavoriamo</div>
+
+      <div class="wf-sticky reveal" aria-label="Workflow scroll" id="wfSticky">
+        <div class="wf-bg" aria-hidden="true">
+          <div class="layer" style="background-image:url('img/workflow/scatto.jpg')"></div>
+<div class="layer" style="background-image:url('img/workflow/editing.jpg')"></div>
+<div class="layer" style="background-image:url('img/workflow/consegna.jpg')"></div>
+
+        </div>
+
+        <!-- Internal scroll: 3 pages (touch + sync) -->
+        <div class="wf-scroll" id="wfScroll" aria-hidden="true">
+          <div class="wf-page"></div>
+          <div class="wf-page"></div>
+          <div class="wf-page"></div>
+        </div>
+
+        <div class="wf-content">
+          <div class="wf-words">
+            <div class="wf-word active" data-step="0">SCATTO</div>
+            <div class="wf-word" data-step="1">EDITING</div>
+            <div class="wf-word" data-step="2">CONSEGNA</div>
+            <div class="wf-sub">Scroll in giù: ogni step segue il ritmo della regata — produzione sul campo, selezione e montaggio veloce, delivery per social, press e sponsor.</div>
+          </div>
+
+          <div class="wf-panel">
+            <div class="wf-mouse" aria-hidden="true">
+              <div class="mouse"><span class="wheel"></span></div>
+              <div class="arrow"></div>
+              <div class="wf-hint">scroll</div>
+            </div>
+
+            <div class="wf-steps" role="list" aria-label="Fasi">
+              <div class="wf-step active" data-step="0" role="listitem"><i aria-hidden="true"></i><strong>SCATTO</strong></div>
+              <div class="wf-step" data-step="1" role="listitem"><i aria-hidden="true"></i><strong>EDITING</strong></div>
+              <div class="wf-step" data-step="2" role="listitem"><i aria-hidden="true"></i><strong>CONSEGNA</strong></div>
+            </div>
+
+            <div style="color:var(--muted2);font-size:13px;line-height:1.7">
+              <b>Turnaround:</b> recap giornaliero / contenuti entro 24h.<br>
+              <b>Output:</b> vertical, highlights, race film, press pack.
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-progress" aria-hidden="true"><i id="wfBar" style="width:33%"></i></div>
+      </div>
+
+      <!-- Extra space to let the sticky play out -->
+      <div style="height:120vh" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="eyebrow">Servizi</div>
+    <div class="title">Contenuti pronti per correre.</div>
+
+    <div class="services reveal">
+      <div class="svc">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-2h6l2 2h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <h3>Gallery foto giornaliera</h3>
+        <p>Azione in acqua e a terra, dettagli tecnici, ritratti crew.</p>
+      </div>
+
+      <div class="svc">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="m22 8-6 4 6 4V8Z"/>
+            <rect x="2" y="6" width="14" height="12" rx="2"/>
+          </svg>
+        </div>
+        <h3>Video/reel recap e</h3>
+        <p>Highlights, race film, teaser. Montaggio energico e pulito.</p>
+      </div>
+
+      <div class="svc">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+        <h3>Gestione social</h3>
+        <p>Gestione della tua pagina social del tuo evento/circolo con le migliori strategie.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-block reveal">
+      <h2>Vuoi una copertura che tenga il passo della regata?</h2>
+      <p>Inviaci date, location e obiettivo. Rispondiamo con una proposta chiara e veloce.</p>
+      <a class="btn2" href="#contact">Contattaci</a>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer reveal">
+      <div class="fgrid">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="mark" aria-hidden="true" style="width:38px;height:38px;border-radius:14px"></div>
+            <div>
+              <div style="font-weight:900;letter-spacing:.26em;text-transform:uppercase">Sail Media Group</div>
+              <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-top:4px">Regatta Photo • Video</div>
+            </div>
+          </div>
+
+          <p style="margin-top:16px">Tutte le immagini sono stock e sostituibili. Quando mi mandi i video, trasformo hero + progetti in preview video.</p>
+
+          <div class="social" aria-label="Social">
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+            <a href="https://vimeo.com" target="_blank" aria-label="Vimeo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.23 5.924c-.094 2.05-1.52 4.856-4.278 8.42-2.858 3.74-5.275 5.61-7.25 5.61-1.23 0-2.27-1.135-3.116-3.404-.564-2.07-1.125-4.14-1.69-6.21-.626-2.27-1.298-3.404-2.017-3.404-.156 0-.703.328-1.64.984L0 6.61c1.03-.906 2.04-1.812 3.03-2.718 1.35-1.17 2.36-1.79 3.03-1.86 1.59-.156 2.57.906 2.95 3.186.41 2.45.69 3.97.84 4.56.47 2.14.99 3.21 1.56 3.21.44 0 1.1-.7 1.98-2.11.88-1.41 1.35-2.48 1.41-3.21.13-1.21-.35-1.82-1.41-1.82-.5 0-1.01.11-1.53.33 1.02-3.35 2.97-4.97 5.85-4.87 2.14.06 3.15 1.45 3.03 4.17z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube (placeholder)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5V8.5l6.4 3.5-6.4 3.5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Contatti</h4>
+          <p>
+            <a href="mailto:info@sailmediagroup.it">info@sailmediagroup.it</a><br>
+            Base: Italia (on-site in regata)
+          </p>
+        </div>
+
+        <div>
+          <h4>Note</h4>
+          <p>Portfolio e testi placeholder.<br>© 2025 Sail Media Group</p>
+        </div>
+      </div>
+
+      <div class="footbar">
+        <span>Privacy</span>
+        <span>Cookie</span>
+        <span>All rights reserved</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Expected behavior check (quick sanity tests)
+    // 1) The workflow has exactly 3 steps and advances when scrolling inside the sticky.
+    // 2) When you are at the first step and scroll up (or last step and scroll down), the page scroll should continue normally.
+
+    const header = document.getElementById('header');
+    const onScrollHeader = () => header.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScrollHeader, { passive: true });
+    onScrollHeader();
+
+    // Mobile nav
+    const mnav = document.getElementById('mnav');
+    const openNav = document.getElementById('openNav');
+    const closeNav = document.getElementById('closeNav');
+
+    function setNav(open){
+      mnav.classList.toggle('open', open);
+      mnav.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    openNav.addEventListener('click', () => setNav(true));
+    closeNav.addEventListener('click', () => setNav(false));
+    mnav.addEventListener('click', (e) => { if(e.target === mnav) setNav(false); });
+    document.querySelectorAll('.mLink').forEach(a => a.addEventListener('click', () => setNav(false)));
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') setNav(false); });
+
+    // Reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting) en.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Parallax/scale targets
+    const parTargets = Array.from(document.querySelectorAll('[data-parallax], [data-scale]'));
+
+    let ticking = false;
+    function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+    // Workflow
+    const wfSticky = document.getElementById('wfSticky');
+    const wfScroll = document.getElementById('wfScroll');
+    const wfSteps = Array.from(document.querySelectorAll('.wf-step'));
+    const wfWords = Array.from(document.querySelectorAll('.wf-word'));
+    const wfLayers = Array.from(document.querySelectorAll('.wf-bg .layer'));
+    const wfBar = document.getElementById('wfBar');
+
+    function setWorkflowStep(idx){
+      wfSteps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === idx));
+      wfWords.forEach(w => w.classList.toggle('active', Number(w.dataset.step) === idx));
+      wfLayers.forEach(l => l.classList.toggle('active', Number(l.dataset.step) === idx));
+      if(wfBar) wfBar.style.width = ((idx + 1) / 3 * 100) + '%';
+    }
+
+    function getWorkflowStep(){
+      if(!wfScroll) return 0;
+      const h = wfScroll.clientHeight || 1;
+      return Math.max(0, Math.min(2, Math.round(wfScroll.scrollTop / h)));
+    }
+
+    function scrollToStep(idx, smooth=true){
+      if(!wfScroll) return;
+      const h = wfScroll.clientHeight || 1;
+      wfScroll.scrollTo({ top: idx * h, behavior: smooth ? 'smooth' : 'auto' });
+    }
+
+    function syncWorkflow(){
+      setWorkflowStep(getWorkflowStep());
+    }
+
+    // "Tests" (console assertions)
+    (function runTests(){
+      console.assert(!!wfSticky && !!wfScroll, 'Workflow elements missing: wfSticky or wfScroll');
+      console.assert(wfSteps.length === 3, 'Expected 3 wf-step elements, got ' + wfSteps.length);
+      console.assert(wfWords.length === 3, 'Expected 3 wf-word elements, got ' + wfWords.length);
+      console.assert(wfLayers.length === 3, 'Expected 3 background layers, got ' + wfLayers.length);
+    })();
+
+    if(wfScroll && wfSticky){
+      // Keep UI synced with touch / trackpad scroll inside wfScroll
+      wfScroll.addEventListener('scroll', syncWorkflow, { passive: true });
+
+      // Wheel stepper on desktop: intercept wheel ONLY when the sticky is in view
+      let wfLock = false;
+      wfSticky.addEventListener('wheel', (e) => {
+        const r = wfSticky.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+        const mostlyVisible = r.top < 120 && r.bottom > vh - 120; // sticky is effectively "active"
+        if(!mostlyVisible) return; // allow normal page scroll
+
+        const dir = Math.sign(e.deltaY);
+        if(dir === 0) return;
+
+        const cur = getWorkflowStep();
+        const next = Math.max(0, Math.min(2, cur + dir));
+
+        // Important: if we're at edges and user keeps scrolling past, let the page scroll.
+        if((cur === 0 && dir < 0) || (cur === 2 && dir > 0)){
+          return; // do NOT preventDefault
+        }
+
+        e.preventDefault();
+        if(wfLock) return;
+        wfLock = true;
+
+        scrollToStep(next, true);
+        setTimeout(() => { wfLock = false; }, 520);
+      }, { passive: false });
+
+      // Initial state
+      syncWorkflow();
+    }
+
+    function update(){
+      ticking = false;
+      for(const el of parTargets){
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight || 1;
+        const mid = rect.top + rect.height/2;
+        const t = (mid - vh/2) / (vh/2); // -1..1
+        const par = parseFloat(el.getAttribute('data-parallax') || '0');
+        const sc = parseFloat(el.getAttribute('data-scale') || '0');
+        const y = -t * par;
+        const s = 1 + (1 - Math.min(1, Math.abs(t))) * sc;
+        if(rect.bottom > -200 && rect.top < vh + 200){
+          el.style.transform = `translate3d(0, ${y}px, 0) scale(${s})`;
+        }
+      }
+    }
+
+    function onScroll(){
+      if(ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      onScroll();
+      // Re-snap to the current step after resize (height may change)
+      const cur = getWorkflowStep();
+      scrollToStep(cur, false);
+      syncWorkflow();
+    });
+    onScroll();
+  </script>
+</body>
+</html>
