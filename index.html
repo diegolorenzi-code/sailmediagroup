@@ -237,7 +237,104 @@
     .car-btn.next{right:0}
 
     @media (max-width: 980px){
-      .carousel{grid-auto-columns: 86%; padding:6px 6px}
+  /* ===== MOBILE REDESIGN (hero + header) ===== */
+  header{height:64px}
+  .nav{padding:0 16px}
+
+  .brand{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+  }
+  .brand .name{
+    font-size:13px;
+    letter-spacing:.32em;
+  }
+
+  .cta{display:none}
+
+  .hero{min-height:auto;padding-top:64px}
+  .hero .wrap{
+    padding:64px 16px 0;
+    gap:18px;
+  }
+
+  .kicker{
+    font-size:11px;
+    letter-spacing:.24em;
+    margin-bottom:8px;
+  }
+
+  h1{
+    font-size:40px;
+    line-height:1.05;
+    letter-spacing:-.03em;
+  }
+
+  .lead{
+    font-size:15px;
+    line-height:1.7;
+    margin-top:12px;
+  }
+
+  .hero-actions{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .btn, .btn.primary{
+    width:100%;
+    padding:16px 18px;
+    font-size:12px;
+  }
+
+  .hero-media{
+    height:240px;
+    border-radius:22px;
+    margin-top:22px;
+  }
+
+  /* ===== MOBILE PROJECTS CAROUSEL ===== */
+  .carousel{
+    grid-auto-columns: 88%;
+    padding:6px 0 6px 6px;
+  }
+
+  .project{
+    min-height:420px;
+  }
+
+  .project-info{
+    padding:16px;
+  }
+
+  .project-info h3{
+    font-size:17px;
+  }
+
+  .project-link{
+    width:100%;
+    margin-top:16px;
+  }
+
+  /* ===== MOBILE WORKFLOW ===== */
+  .wf-word{
+    font-size:48px;
+  }
+
+  .wf-panel{
+    padding:14px;
+  }
+
+  /* ===== MOBILE FOOTER ===== */
+  .footer{
+    padding:32px 18px;
+  }
+}
+
       .car-btn{display:none}
       .project{min-height:440px}
       .project-media{min-height:300px}
